@@ -1,0 +1,96 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  db:
+    image: camillycamp0s/nca_sidpb_datasetcultural:db_postgis_sidpb_cultura_1.0.1
+    environment:
+      TZ: America/Sao_Paulo
+
+      POSTGRES_USER: ${POSTGRES_ADMIN_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD}
+      POSTGRES_DB: postgres
+
+      SIDPB_DB_USER: ${SIDPB_DB_USER}
+      SIDPB_DB_PASSWORD: ${SIDPB_DB_PASSWORD}
+      CULTURA_DB_USER: ${CULTURA_DB_USER}
+      CULTURA_DB_PASSWORD: ${CULTURA_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    logging: *default-logging
+    networks:
+      - nca-network
+
+  # SIDPB BACKEND 
+  sidpb_backend:
+    image: camillycamp0s/nca_sidpb_datasetcultural:sidpb_backend_1.0.1
+    restart: unless-stopped
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db_sidpb
+      SPRING_DATASOURCE_USERNAME: ${SIDPB_DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${SIDPB_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:8081:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    logging: *default-logging
+    networks:
+      - nca-network
+
+  # SIDPB FRONTEND - NEXT.JS
+  sidpb_frontend:
+    image: camillycamp0s/nca_sidpb_datasetcultural:sidpb_frontend_1.0.1
+    restart: unless-stopped
+    environment:
+      TZ: America/Sao_Paulo
+    ports:
+      - "127.0.0.1:3001:3000"
+    depends_on:
+      - sidpb_backend
+    logging: *default-logging
+    networks:
+      - nca-network
+
+  # CULTURA MARANHENSE - NEXT.JS FULLSTACK
+  cultura-maranhense:
+    image: camillycamp0s/nca_sidpb_datasetcultural:cultura_maranhense_1.0.1
+    restart: unless-stopped
+    environment:
+      TZ: America/Sao_Paulo
+      DATABASE_URL: postgresql://${CULTURA_DB_USER}:${CULTURA_DB_PASSWORD}@db:5432/db_cultura?schema=public
+      JWT_SECRET: ${JWT_SECRET}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
+    volumes:
+      - uploads_data:/app/public/uploads
+    command: >
+      sh -c "npx prisma db push && npm start"
+    ports:
+      - "127.0.0.1:3002:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    logging: *default-logging
+    networks:
+      - "nca-network"
+
+networks:
+  nca-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  uploads_data:

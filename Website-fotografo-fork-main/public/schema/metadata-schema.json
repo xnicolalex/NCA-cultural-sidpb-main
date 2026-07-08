@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Imagem Cultural Maranhense",
+  "description": "Esquema de metadados para imagens do dataset cultural do Maranhão",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "photographer",
+    "date_taken",
+    "location",
+    "manifestation",
+    "license",
+    "consent_provided"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identificador único da imagem"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200,
+      "description": "Título descritivo da imagem"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 200,
+      "maxLength": 1000,
+      "description": "Contextualização cultural e etnográfica detalhada"
+    },
+    "photographer": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Nome do fotógrafo"
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email de contato (opcional)"
+        },
+        "profile_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL do perfil ou portfólio"
+        },
+        "community_affiliation": {
+          "type": "string",
+          "description": "Vínculo comunitário ou institucional"
+        }
+      }
+    },
+    "date_taken": {
+      "type": "string",
+      "format": "date",
+      "description": "Data em que a foto foi tirada"
+    },
+    "location": {
+      "type": "object",
+      "required": ["municipality", "state"],
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "municipality": {
+          "type": "string",
+          "description": "Município onde a foto foi tirada"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["MA"],
+          "description": "Estado (Maranhão)"
+        },
+        "neighborhood": {
+          "type": "string",
+          "description": "Bairro ou localidade específica"
+        },
+        "place_name": {
+          "type": "string",
+          "description": "Nome do local (ex: Praça do Pantheon)"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3,
+      "maxItems": 20,
+      "description": "Palavras-chave descritivas"
+    },
+    "manifestation": {
+      "type": "string",
+      "enum": [
+        "Bumba-meu-boi",
+        "Tambor-de-Crioula",
+        "Divino-Espirito-Santo",
+        "Arquitetura-Historica",
+        "Artesanato",
+        "Culinaria",
+        "Festa-Popular",
+        "Religiosidade",
+        "Cacuria",
+        "Danca-do-Coco",
+        "Lencois-Maranhenses",
+        "Outro"
+      ],
+      "description": "Tipo de manifestação cultural"
+    },
+    "license": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["CC-BY", "CC-BY-SA", "CC-BY-NC", "CC-BY-NC-SA", "CC0", "Dominio-Publico", "Copyright"],
+          "description": "Tipo de licença"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL da licença"
+        },
+        "details": {
+          "type": "string",
+          "description": "Detalhes adicionais sobre a licença"
+        }
+      }
+    },
+    "consent_provided": {
+      "type": "boolean",
+      "description": "Consentimento fornecido por pessoas identificáveis na imagem"
+    },
+    "technical": {
+      "type": "object",
+      "properties": {
+        "resolution": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 800
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 600
+            }
+          }
+        },
+        "file_type": {
+          "type": "string",
+          "enum": ["jpeg", "jpg", "png", "webp", "avif", "tiff"]
+        },
+        "file_size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "camera": {
+          "type": "string",
+          "description": "Modelo da câmera"
+        },
+        "iso": {
+          "type": "integer"
+        },
+        "aperture": {
+          "type": "string"
+        },
+        "shutter_speed": {
+          "type": "string"
+        }
+      }
+    },
+    "curation_status": {
+      "type": "string",
+      "enum": ["pending", "accepted", "rejected", "needs_context", "verified"],
+      "default": "pending",
+      "description": "Status da curadoria"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["pt-BR", "en-US"],
+      "default": "pt-BR",
+      "description": "Idioma dos metadados"
+    },
+    "cultural_context": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["informant", "curator", "specialist", "community-leader"]
+          },
+          "name": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "description": "Contextualização cultural fornecida"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "description": "Contextualizações fornecidas por especialistas ou membros da comunidade"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL de origem da imagem (se aplicável)"
+    },
+    "checksum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "Hash SHA-256 do arquivo"
+    },
+    "uploaded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data e hora do upload"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data e hora da última atualização"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "restricted", "private"],
+      "default": "public",
+      "description": "Visibilidade da imagem no dataset"
+    },
+    "sensitive_content": {
+      "type": "boolean",
+      "default": false,
+      "description": "Indica se a imagem contém conteúdo sensível"
+    },
+    "usage_notes": {
+      "type": "string",
+      "description": "Notas sobre uso apropriado e contexto cultural"
+    }
+  }
+}
