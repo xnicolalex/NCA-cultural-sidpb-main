@@ -1,0 +1,12 @@
+com\nca\sistema_miiase_app\controller\OccurrenceControllerTest.class
+com\nca\sistema_miiase_app\mapper\OccurrenceQueryMapperTest$1.class
+com\nca\sistema_miiase_app\mapper\OccurrenceQueryMapperTest$2.class
+com\nca\sistema_miiase_app\service\analytics\OccurrenceQueryServiceTest$1.class
+com\nca\sistema_miiase_app\mapper\OccurrenceQueryMapperTest.class
+com\nca\sistema_miiase_app\service\analytics\MapDataServiceTest$1.class
+com\nca\sistema_miiase_app\SistemaMiiaseAppApplicationTests.class
+com\nca\sistema_miiase_app\service\analytics\OccurrenceQueryServiceTest.class
+com\nca\sistema_miiase_app\service\analytics\MapDataServiceTest.class
+com\nca\sistema_miiase_app\domain\repository\OcorrenciaRepositoryDataJpaTest$BaseIds.class
+com\nca\sistema_miiase_app\controller\MapControllerTest.class
+com\nca\sistema_miiase_app\domain\repository\OcorrenciaRepositoryDataJpaTest.class
