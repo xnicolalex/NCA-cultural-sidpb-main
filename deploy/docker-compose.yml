@@ -30,7 +30,9 @@ services:
       - nca-network
 
   sidpb_backend:
-    build: ../sidpb-backend-dev          
+    build:
+      context: ../sidpb-backend-dev
+      dockerfile: Dockerfile          
     restart: unless-stopped
     environment:
       TZ: America/Sao_Paulo
@@ -38,7 +40,7 @@ services:
       SPRING_DATASOURCE_USERNAME: ${SIDPB_DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${SIDPB_DB_PASSWORD}
     ports:
-      - "127.0.0.1:8081:8080"
+      - "8081:8080"
     depends_on:
       db:
         condition: service_healthy
@@ -52,7 +54,7 @@ services:
     environment:
       TZ: America/Sao_Paulo
     ports:
-      - "127.0.0.1:3001:3000"
+      - "3001:3000"
     depends_on:
       - sidpb_backend
     logging: *default-logging
@@ -73,13 +75,27 @@ services:
     command: >
       sh -c "npx prisma db push && npm start"
     ports:
-      - "127.0.0.1:3002:3000"
+      - "3002:3000"
     depends_on:
       db:
         condition: service_healthy
     logging: *default-logging
     networks:
       - nca-network
+
+# # NGINX UNIFICADO
+#   nginx:
+#     build:
+#       context: ./nginx
+#       dockerfile: Dockerfile
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - sidpb_frontend
+#       - sidpb_backend
+#       - cultura-maranhense
+#     networks:
+#       - nca-network
 
 networks:
   nca-network:
