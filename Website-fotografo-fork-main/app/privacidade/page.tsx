@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { MarkdownViewer } from "@/components/markdown-viewer"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { withBasePath } from "@/lib/paths"
 
 interface PrivacySection {
   id: string
@@ -65,8 +66,8 @@ export default async function PrivacidadePage() {
       <SiteHeader />
 
       <section className="relative min-h-[35vh] md:min-h-[45vh] flex items-center justify-center bg-neutral-50 overflow-hidden">
-        <img src="/azulejossite.svg" alt="" aria-hidden="true" className="hidden sm:block absolute top-0 left-0 w-64 md:w-96 pointer-events-none opacity-80 z-0" />
-        <img src="/azulejossite.svg" alt="" aria-hidden="true" className="hidden sm:block absolute bottom-0 right-0 w-64 md:w-96 pointer-events-none rotate-180 opacity-80 z-0" />
+        <img src={withBasePath("/azulejossite.svg")} alt="" aria-hidden="true" className="hidden sm:block absolute top-0 left-0 w-64 md:w-96 pointer-events-none opacity-80 z-0" />
+        <img src={withBasePath("/azulejossite.svg")} alt="" aria-hidden="true" className="hidden sm:block absolute bottom-0 right-0 w-64 md:w-96 pointer-events-none rotate-180 opacity-80 z-0" />
 
         <div className="relative z-10 text-center space-y-4 md:space-y-5 px-4 sm:px-6">
           <p className="text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground font-medium">Última atualização: Abril de 2025</p>

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { apiPath } from "@/lib/paths";
 
 interface Dominio {
   id: number;
@@ -56,7 +57,7 @@ export function useAddImage(): UseAddImageReturn {
     const fetchDominios = async () => {
       setLoadingDominios(true);
       try {
-        const res = await fetch("/api/dominios");
+        const res = await fetch(apiPath("/api/dominios"));
         if (res.ok) {
           const data = await res.json();
           setDominios(data);
@@ -117,7 +118,7 @@ export function useAddImage(): UseAddImageReturn {
       }
 
       try {
-        const res = await fetch("/api/upload", { method: "POST", body: formDataToSend });
+        const res = await fetch(apiPath("/api/upload"), { method: "POST", body: formDataToSend });
         if (!res.ok) {
           const data = await res.json();
           throw new Error(data.error || "Erro ao enviar imagem.");

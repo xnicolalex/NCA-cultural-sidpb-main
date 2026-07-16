@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import { toast } from "sonner";
+import { apiPath } from "@/lib/paths";
 
 export function useAnnotationActions(
   fetchAnotadas: () => Promise<void>,
@@ -10,7 +11,7 @@ export function useAnnotationActions(
 ) {
   const handleAprovar = useCallback(
     async (id: number) => {
-      const res = await fetch("/api/curadoria/aprovar-anotacao", {
+      const res = await fetch(apiPath("/api/curadoria/aprovar-anotacao"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ registroId: id }),
@@ -29,7 +30,7 @@ export function useAnnotationActions(
 
   const handleRejeitar = useCallback(
     async (id: number, motivo?: string): Promise<void> => {
-      const res = await fetch("/api/curadoria/rejeitar-anotacao", {
+      const res = await fetch(apiPath("/api/curadoria/rejeitar-anotacao"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ registroId: id, motivo: motivo || "" }),

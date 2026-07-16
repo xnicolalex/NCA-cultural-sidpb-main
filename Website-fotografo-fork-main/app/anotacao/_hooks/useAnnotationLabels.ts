@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiPath } from '@/lib/paths';
 
 const FALLBACK_LABELS = [
   'Bumba-meu-boi',
@@ -19,7 +20,7 @@ export function useAnnotationLabels() {
     const fetchLabels = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch('/api/dominios');
+        const res = await fetch(apiPath('/api/dominios'));
         if (res.ok) {
           const data = await res.json();
           const labels = data.map((item: any) => item.nome_categoria);

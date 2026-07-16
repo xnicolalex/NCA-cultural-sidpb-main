@@ -1,13 +1,18 @@
+const basePath =
+  process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
-    // Ignora o erro do react-hook-form
     ignoreBuildErrors: true,
   },
   eslint: {
-    // Ignora erros de variáveis não usadas
     ignoreDuringBuilds: true,
   },
 };
+
+if (basePath) {
+  nextConfig.basePath = basePath;
+}
 
 export default nextConfig;

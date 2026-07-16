@@ -11,6 +11,7 @@ import { AlertCircle, ChevronLeft, ChevronRight } from "lucide-react"
 import { toast } from "sonner"
 import type { ImageFile } from "./contribution-flow"
 import { cn } from "@/lib/utils"
+import { apiPath, withBasePath } from "@/lib/paths"
 
 type MetadataStepProps = {
   images: ImageFile[]
@@ -28,7 +29,7 @@ export function MetadataStep({ images, setImages, onNext, onBack }: MetadataStep
   useEffect(() => {
     const fetchDominios = async () => {
       try {
-        const res = await fetch('/api/dominios')
+        const res = await fetch(apiPath('/api/dominios'))
         if (res.ok) {
           const data = await res.json()
           setDominios(data)
@@ -113,7 +114,7 @@ export function MetadataStep({ images, setImages, onNext, onBack }: MetadataStep
       <div className="grid gap-6 md:gap-8 grid-cols-1 lg:grid-cols-2">
         <div>
           <div className="rounded-xl overflow-hidden border border-border bg-card aspect-square sticky top-24">
-            <img src={currentImage.preview || "/placeholder.svg"} alt="Preview da imagem" className="w-full h-full object-cover" />
+            <img src={currentImage.preview || withBasePath("/placeholder.svg")} alt="Preview da imagem" className="w-full h-full object-cover" />
           </div>
         </div>
 

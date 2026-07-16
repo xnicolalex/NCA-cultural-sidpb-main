@@ -6,6 +6,7 @@ import { Upload, X, ImageIcon } from "lucide-react"
 import { toast } from "sonner" 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { withBasePath } from "@/lib/paths"
 import type { ImageFile } from "./contribution-flow"
 
 type UploadStepProps = {
@@ -114,7 +115,7 @@ export function UploadStep({ images, setImages, onNext }: UploadStepProps) {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
             {images.map((image) => (
               <div key={image.id} className="relative group rounded-lg overflow-hidden border border-border bg-card aspect-square">
-                <img src={image.preview || "/placeholder.svg"} alt="Preview" className="w-full h-full object-cover" />
+                <img src={image.preview || withBasePath("/placeholder.svg")} alt="Preview" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Button size="sm" variant="destructive" onClick={() => removeImage(image.id)} className="h-8 text-xs"><X className="h-3 w-3 mr-1" /> Remover</Button>
                 </div>

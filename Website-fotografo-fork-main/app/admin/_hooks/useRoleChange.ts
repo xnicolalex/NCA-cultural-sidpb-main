@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
+import { apiPath } from "@/lib/paths";
 import { PapelUsuario, AdminUser } from "../_types";
 
 type RoleChangeStep = "select" | "confirm";
@@ -30,7 +31,7 @@ export function useRoleChange(
     if (!canSave || !user || !selectedRole) return;
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/admin/usuarios/${user.id}/role`, {
+      const res = await fetch(apiPath(`/api/admin/usuarios/${user.id}/role`), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newRole: selectedRole }),

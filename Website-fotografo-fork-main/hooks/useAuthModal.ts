@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/auth-context';
+import { apiPath } from '@/lib/paths';
 
 interface UseAuthModalReturn {
   nomeCadastro: string;
@@ -67,7 +68,7 @@ export function useAuthModal(): UseAuthModalReturn {
     setIsLoadingCadastro(true);
 
     try {
-      const registerResponse = await fetch('/api/auth/register', {
+      const registerResponse = await fetch(apiPath('/api/auth/register'), {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome: nomeCadastro, email: emailCadastro, senha: senhaCadastro }),
@@ -82,7 +83,7 @@ export function useAuthModal(): UseAuthModalReturn {
         return;
       }
 
-      const loginResponse = await fetch('/api/auth/login', {
+      const loginResponse = await fetch(apiPath('/api/auth/login'), {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailCadastro, senha: senhaCadastro }),
@@ -133,7 +134,7 @@ export function useAuthModal(): UseAuthModalReturn {
     setIsLoadingLogin(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(apiPath('/api/auth/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailLogin, senha: senhaLogin }),

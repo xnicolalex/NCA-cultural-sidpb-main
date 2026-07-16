@@ -7,6 +7,7 @@ import { useState, useEffect } from "react"
 import { toast } from "sonner"
 import { useAuth } from "@/contexts/auth-context"
 import { AuthModal } from "@/components/auth-modal"
+import { withBasePath } from "@/lib/paths"
 
 export function SiteHeader() {
   const { user, logoutSessao } = useAuth()
@@ -38,7 +39,7 @@ export function SiteHeader() {
           
           <Link href="/" className="flex items-center gap-3">
             <div className="relative h-12 w-12 sm:h-14 sm:w-14 rounded-lg flex items-center justify-center overflow-hidden">
-              <img src="/logo.svg" alt="Logo do NCA" className="object-contain p-1 text-primary-foreground" />
+              <img src={withBasePath("/logo.svg")} alt="Logo do NCA" className="object-contain p-1 text-primary-foreground" />
             </div>
             <div className="hidden md:block">
               <div className="font-serif text-lg font-bold leading-tight text-foreground">Dataset Multimodal</div>

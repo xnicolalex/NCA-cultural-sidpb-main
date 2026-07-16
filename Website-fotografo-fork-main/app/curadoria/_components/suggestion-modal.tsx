@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { apiPath } from "@/lib/paths";
 import type { RegistroComDominio } from "@/hooks/usePerfil";
 
 interface SuggestionModalProps {
@@ -24,7 +25,7 @@ export function SuggestionModal({ registro, onClose, onSuccess }: SuggestionModa
       setAcao("PROMOVER");
       setCategoriaExistenteId(null);
       setLoadingCategorias(true);
-      fetch("/api/curadoria/categorias")
+      fetch(apiPath("/api/curadoria/categorias"))
         .then((res) => res.json())
         .then((data) => setCategorias(data))
         .catch(() => toast.error("Erro ao carregar categorias."))
@@ -53,7 +54,7 @@ export function SuggestionModal({ registro, onClose, onSuccess }: SuggestionModa
       if (acao === "PROMOVER") body.novaCategoria = novaCategoria.trim();
       if (acao === "FUNDIR") body.dominioIdExistente = categoriaExistenteId;
 
-      const res = await fetch("/api/curadoria/processar-sugestao", {
+      const res = await fetch(apiPath("/api/curadoria/processar-sugestao"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

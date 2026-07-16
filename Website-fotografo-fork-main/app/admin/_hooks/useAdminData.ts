@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { toast } from "sonner";
+import { apiPath } from "@/lib/paths";
 import type { AdminUser, AdminStats } from "../_types";
 
 export function useAdminData() {
@@ -14,7 +15,7 @@ export function useAdminData() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/admin/usuarios?limit=${limit}`);
+      const res = await fetch(apiPath(`/api/admin/usuarios?limit=${limit}`));
       if (!res.ok) throw new Error("Erro ao carregar usuários");
       const { data } = await res.json();
       setUsers(data);
@@ -29,7 +30,7 @@ export function useAdminData() {
 
   const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/stats");
+      const res = await fetch(apiPath("/api/admin/stats"));
       if (res.ok) {
         setStats(await res.json());
       }

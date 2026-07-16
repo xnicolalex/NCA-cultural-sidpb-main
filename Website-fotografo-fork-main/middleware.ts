@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "") ?? "";
 
 const REGRAS_ACESSO: Record<string, string[]> = {
   "/curadoria": ["CURADOR", "ADMINISTRADOR"],
@@ -22,9 +23,20 @@ const REGRAS_ACESSO: Record<string, string[]> = {
   "/api/admin": ["ADMINISTRADOR"],
 };
 
+function withoutBasePath(pathname: string) {
+  if (!BASE_PATH || BASE_PATH === "/") return pathname;
+  if (pathname === BASE_PATH) return "/";
+  if (pathname.startsWith(`${BASE_PATH}/`)) return pathname.slice(BASE_PATH.length);
+  return pathname;
+}
+
+function homeUrl(request: NextRequest) {
+  return new URL(BASE_PATH || "/", request.url);
+}
+
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("meu_token_de_acesso")?.value;
-  const { pathname } = request.nextUrl;
+  const pathname = withoutBasePath(request.nextUrl.pathname);
 
   const rotaBase = Object.keys(REGRAS_ACESSO).find((rota) =>
     pathname.startsWith(rota)
@@ -41,7 +53,7 @@ export async function middleware(request: NextRequest) {
         { status: 401 }
       );
     }
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(homeUrl(request));
   }
 
   try {
@@ -56,7 +68,7 @@ export async function middleware(request: NextRequest) {
           { status: 403 }
         );
       }
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(homeUrl(request));
     }
 
     const requestHeaders = new Headers(request.headers);
@@ -73,7 +85,7 @@ export async function middleware(request: NextRequest) {
         { status: 401 }
       );
     }
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(homeUrl(request));
   }
 }
 

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useContribuirClick } from "@/hooks/useContribuirClick"
+import { withBasePath } from "@/lib/paths"
 
 interface FooterLink {
   name: string
@@ -50,7 +51,7 @@ export function SiteFooter() {
           <div className="pl-0 sm:pl-3 lg:pl-6 flex justify-center sm:justify-start">
             <Link href="/" className="flex items-center gap-3 mb-2 sm:mb-4">
               <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-lg flex items-center justify-center overflow-hidden">
-                <img src="/logo.svg" alt="Logo do NCA" className="object-contain p-1" />
+                <img src={withBasePath("/logo.svg")} alt="Logo do NCA" className="object-contain p-1" />
               </div>
             </Link>
           </div>

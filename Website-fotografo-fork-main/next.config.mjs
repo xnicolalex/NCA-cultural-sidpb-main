@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "")
+
 const nextConfig = {
+  ...(basePath ? { basePath } : {}),
   // Permite conexões externas (WebSockets/HMR) no modo Dev dentro do Docker
   allowedDevOrigins: [
     'localhost:3001',

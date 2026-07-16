@@ -1,23 +1,5 @@
-FROM eclipse-temurin:21-jdk AS builder
-
-WORKDIR /app
-
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-
-RUN chmod +x mvnw
-
-COPY src src
-
-RUN ./mvnw clean package -DskipTests
-
-FROM eclipse-temurin:21-jre
-
-WORKDIR /app
-
-COPY --from=builder /app/target/*.jar app.jar
-
+FROM eclipse-temurin:21-jdk
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} /app/app.jar
 EXPOSE 8080
-
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "/app/app.jar"]
