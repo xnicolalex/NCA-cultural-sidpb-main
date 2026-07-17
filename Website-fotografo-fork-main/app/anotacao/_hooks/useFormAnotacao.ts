@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
+import { apiPath } from '@/lib/paths';
 import type { Registro } from '../_types';
 
 interface UseFormAnotacaoProps {
@@ -46,7 +47,7 @@ export function useFormAnotacao({
 
     const boundingBoxes = getBoundingBoxesForAPI();
 
-    const res = await fetch('/api/anotacao/salvar', {
+    const res = await fetch(apiPath('/api/anotacao/salvar'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -89,7 +90,7 @@ export function useFormAnotacao({
     }
     if (!registro) return;
 
-    const res = await fetch('/api/anotacao/pular', {
+    const res = await fetch(apiPath('/api/anotacao/pular'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ registroId: registro.id, justificativa }),

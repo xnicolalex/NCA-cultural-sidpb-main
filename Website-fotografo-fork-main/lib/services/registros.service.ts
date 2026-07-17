@@ -1,3 +1,5 @@
+import { apiPath } from "@/lib/paths";
+
 export interface RegistroIconografico {
   id: number;
   url: string;
@@ -12,7 +14,7 @@ export interface RegistroIconografico {
 }
 
 export async function buscarRegistrosPorUsuario(usuarioId: string): Promise<RegistroIconografico[]> {
-  const response = await fetch(`/api/registros?usuarioId=${usuarioId}`);
+  const response = await fetch(apiPath(`/api/registros?usuarioId=${usuarioId}`));
   const data = await response.json();
 
   if (!response.ok) {

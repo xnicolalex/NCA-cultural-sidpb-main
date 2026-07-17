@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronUp, AlertTriangle } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 import type { AnotadaParaRevisao } from "../_types";
 
 interface AnnotationReviewListProps {
@@ -47,7 +48,7 @@ export function AnnotationReviewList({
               >
                 <div className="flex gap-4 flex-col sm:flex-row">
                   <img
-                    src={a.url}
+                    src={withBasePath(a.url)}
                     alt={a.titulo}
                     className="w-24 h-24 object-cover rounded"
                   />

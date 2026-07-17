@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { apiPath } from '@/lib/paths';
 import type { Registro, ReviewNote } from '../_types';
 
 export function useAnotacaoData() {
@@ -11,9 +12,9 @@ export function useAnotacaoData() {
 
   const fetchReviewNotes = useCallback(async (registroId: number) => {
     try {
-      const res = await fetch(
+      const res = await fetch(apiPath(
         `/api/anotacao/review-notes?registroId=${registroId}&resolved=false`
-      );
+      ));
       if (res.ok) {
         const data = await res.json();
         const unresolved = data.data || [];
@@ -27,13 +28,13 @@ export function useAnotacaoData() {
   }, []);
 
   const fetchStats = useCallback(async () => {
-    const res = await fetch('/api/anotacao/stats');
+    const res = await fetch(apiPath('/api/anotacao/stats'));
     const data = await res.json();
     setStats(data);
   }, []);
 
   const fetchPendentes = useCallback(async () => {
-    const res = await fetch('/api/anotacao/pendentes');
+    const res = await fetch(apiPath('/api/anotacao/pendentes'));
     if (res.ok) {
       const data = await res.json();
       setPendentes(data);
@@ -47,7 +48,7 @@ export function useAnotacaoData() {
   }, [fetchReviewNotes]);
 
   const fetchAnotadas = useCallback(async () => {
-    const url = `/api/anotacao/anotadas${filtroMinhas ? '?minhas=true' : ''}`;
+    const url = apiPath(`/api/anotacao/anotadas${filtroMinhas ? '?minhas=true' : ''}`);
     const res = await fetch(url);
     if (res.ok) {
       const data = await res.json();

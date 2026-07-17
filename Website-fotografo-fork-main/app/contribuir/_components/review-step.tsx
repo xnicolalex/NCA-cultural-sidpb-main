@@ -8,6 +8,7 @@ import { BadgeCultural } from "@/components/ui/badge-cultural"
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react"
 import type { ImageFile } from "./contribution-flow"
 import { useAuth } from "@/contexts/auth-context"
+import { apiPath, withBasePath } from "@/lib/paths"
 
 type ReviewStepProps = {
   images: ImageFile[]
@@ -24,7 +25,7 @@ export function ReviewStep({ images, onBack }: ReviewStepProps) {
   useEffect(() => {
     const fetchDominios = async () => {
       try {
-        const res = await fetch('/api/dominios')
+        const res = await fetch(apiPath('/api/dominios'))
         if (res.ok) {
           const data = await res.json()
           setDominios(data)
@@ -69,7 +70,7 @@ export function ReviewStep({ images, onBack }: ReviewStepProps) {
           formData.append('categoria_sugerida', manifestacaoForm)
         }
 
-        const response = await fetch('/api/upload', { method: 'POST', body: formData })
+        const response = await fetch(apiPath('/api/upload'), { method: 'POST', body: formData })
 
         if (!response.ok) {
           throw new Error(`Falha no upload de "${image.metadata?.title || image.file.name}".`)
@@ -148,7 +149,7 @@ export function ReviewStep({ images, onBack }: ReviewStepProps) {
             <div className="flex flex-col md:flex-row gap-6">
               <div className="w-full md:w-[200px] flex-shrink-0">
                 <div className="rounded-lg overflow-hidden border border-border aspect-square bg-muted">
-                  <img src={image.preview || "/placeholder.svg"} alt={image.metadata?.title || "Preview"} className="w-full h-full object-cover" />
+                  <img src={image.preview || withBasePath("/placeholder.svg")} alt={image.metadata?.title || "Preview"} className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="space-y-3 flex-1">

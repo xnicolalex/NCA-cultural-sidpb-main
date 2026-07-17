@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useContribuirClick } from "@/hooks/useContribuirClick"
+import { withBasePath } from "@/lib/paths"
 
 export function HeroSection() {
   const { handleContribuirClick } = useContribuirClick()
   return (
     <section className="relative min-h-[90svh] flex items-center justify-center bg-neutral-50 overflow-hidden">
-      <img src="/azulejossite.svg" alt="Animação de azulejos históricos." className="hidden sm:block absolute top-0 left-0 w-64 md:w-96 lg:w-[28rem] xl:w-[32rem] pointer-events-none z-0" />
-      <img src="/azulejossite.svg" alt="Animação de azulejos históricos." className="hidden sm:block absolute bottom-0 right-0 w-64 md:w-96 lg:w-[28rem] xl:w-[32rem] pointer-events-none rotate-180 z-0" />
+      <img src={withBasePath("/azulejossite.svg")} alt="Animação de azulejos históricos." className="hidden sm:block absolute top-0 left-0 w-64 md:w-96 lg:w-[28rem] xl:w-[32rem] pointer-events-none z-0" />
+      <img src={withBasePath("/azulejossite.svg")} alt="Animação de azulejos históricos." className="hidden sm:block absolute bottom-0 right-0 w-64 md:w-96 lg:w-[28rem] xl:w-[32rem] pointer-events-none rotate-180 z-0" />
       <div className="relative z-10 max-w-[92%] sm:max-w-xl md:max-w-2xl lg:max-w-5xl px-4 sm:px-6 text-center space-y-6 md:space-y-10">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-[0.95] font-serif text-neutral-900 text-balance">
           <span className="block">Dataset</span>

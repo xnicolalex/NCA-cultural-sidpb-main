@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ImageOff, ExternalLink } from "lucide-react";
 import type { RegistroComDominio } from "@/hooks/usePerfil";
 import Link from "next/link";
+import { withBasePath } from "@/lib/paths";
 
 interface ContributionsTableProps {
   registros: RegistroComDominio[];
@@ -108,7 +109,7 @@ export function ContributionsTable({
                     <td className="px-4 py-3">
                       <div className="w-10 h-10 rounded overflow-hidden bg-muted border border-border">
                         <img
-                          src={registro.url}
+                          src={withBasePath(registro.url)}
                           alt={registro.titulo}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />

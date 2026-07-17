@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { apiPath } from "@/lib/paths";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
@@ -22,7 +23,7 @@ export function ContactForm() {
     e.preventDefault();
     setSubmitStatus("loading");
     try {
-      const response = await fetch('/api/contato', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+      const response = await fetch(apiPath('/api/contato'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Falha na conexão ao servidor');
       setSubmitStatus("success");

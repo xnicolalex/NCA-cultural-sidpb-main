@@ -3,6 +3,7 @@
 import { Dialog, DialogPanel, DialogTitle, DialogBackdrop } from '@headlessui/react'
 import { Button } from '@/components/ui/button'
 import type { RegistroComDominio } from '@/hooks/usePerfil'
+import { withBasePath } from '@/lib/paths'
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -22,7 +23,7 @@ export function ImageModal({ isOpen, onClose, registro }: ImageModalProps) {
           
           <div className="w-full h-[50vh] sm:h-[60vh] bg-neutral-900 flex items-center justify-center border-b border-border relative">
             <img 
-              src={registro.url} 
+              src={withBasePath(registro.url)}
               alt={registro.titulo} 
               className="max-w-full max-h-full object-contain"
             />

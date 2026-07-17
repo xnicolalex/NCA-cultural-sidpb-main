@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 import type { Registro } from "../_types";
 
 interface ListaPendentesProps {
@@ -46,7 +47,7 @@ export function ListaPendentes({
                     : "border border-transparent"
                 }`}
               >
-                <img src={p.url} alt={p.titulo} className="w-12 h-12 object-cover rounded" />
+                <img src={withBasePath(p.url)} alt={p.titulo} className="w-12 h-12 object-cover rounded" />
                 <div>
                   <p className="text-sm font-medium">{p.titulo}</p>
                   <p className="text-xs text-slate-500">{p.dominio?.nome_categoria ?? "Outros"}</p>

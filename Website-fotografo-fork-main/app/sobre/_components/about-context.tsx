@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/paths";
+
 export function AboutContext() {
   return (
     <section className="py-12 md:py-20">
@@ -12,7 +14,7 @@ export function AboutContext() {
             </div>
           </div>
           <div className="relative pb-4 sm:pb-0">
-            <div className="rounded-xl overflow-hidden shadow-xl"><img src="/tambor_de_crioula01.jpg" alt="Tambor de Crioula" className="w-full h-auto" /></div>
+            <div className="rounded-xl overflow-hidden shadow-xl"><img src={withBasePath("/tambor_de_crioula01.jpg")} alt="Tambor de Crioula" className="w-full h-auto" /></div>
             <div className="relative sm:absolute mt-4 sm:mt-0 sm:-bottom-6 sm:-right-6 bg-card border border-border rounded-lg p-5 md:p-6 shadow-lg max-w-full sm:max-w-xs">
               <p className="font-semibold mb-1 md:mb-2 text-sm md:text-base">Impacto Social</p>
               <p className="text-xs md:text-sm text-muted-foreground">Cada imagem contribui para a valorização das comunidades tradicionais e o recognition dos mestres culturais.</p>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import type { W3CAnnotation } from '@annotorious/react';
 import { AnnotationSync } from './annotation-sync';
+import { withBasePath } from '@/lib/paths';
 import '@annotorious/react/annotorious-react.css';
 
 const Annotorious = dynamic(
@@ -31,6 +32,7 @@ export function BoundingBoxViewer({
 }: BoundingBoxViewerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const resolvedImageUrl = withBasePath(imageUrl);
 
   const handleNoop = () => {};
 
@@ -55,10 +57,10 @@ export function BoundingBoxViewer({
         </div>
       )}
 
-      <Annotorious key={imageUrl}>
+      <Annotorious key={resolvedImageUrl}>
         <ImageAnnotator drawingEnabled={false}>
           <img
-            src={imageUrl}
+            src={resolvedImageUrl}
             alt="Visualização da anotação"
             className="w-full h-auto block"
             draggable={false}

@@ -6,6 +6,7 @@ import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import crypto from "crypto"
 import exifr from "exifr"
+import { apiPath } from "@/lib/paths"
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!)
 const REGRAS_UPLOAD = ["COLABORADOR", "ANOTADOR", "CURADOR", "ADMINISTRADOR"]
@@ -80,7 +81,7 @@ export async function POST(request: Request) {
     const filepath = path.join(uploadDir, filename)
     await writeFile(filepath, buffer)
 
-    const urlRelativa = `/api/uploads/${filename}`
+    const urlRelativa = apiPath(`/api/uploads/${filename}`)
 
     let exifData: any = {}
     try {

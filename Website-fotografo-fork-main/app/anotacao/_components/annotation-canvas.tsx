@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import type { W3CAnnotation } from '@annotorious/react';
 import { AnnotationSync } from './annotation-sync';
+import { withBasePath } from '@/lib/paths';
 import '@annotorious/react/annotorious-react.css';
 
 const Annotorious = dynamic(
@@ -43,6 +44,7 @@ export function AnnotationCanvas({
 }: AnnotationCanvasProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const resolvedImageUrl = withBasePath(imageUrl);
 
   // Preload image
   useEffect(() => {
@@ -56,7 +58,7 @@ export function AnnotationCanvas({
     setHasError(false);
 
     const img = new Image();
-    img.src = imageUrl;
+    img.src = resolvedImageUrl;
 
     img.onload = () => {
       setIsLoading(false);
@@ -74,9 +76,9 @@ export function AnnotationCanvas({
       img.onload = null;
       img.onerror = null;
     };
-  }, [imageUrl, onImageLoad, onImageError]);
+  }, [resolvedImageUrl, onImageLoad, onImageError]);
 
-  const annotoriousKey = `${imageUrl}-${readOnly ? 'readonly' : 'editable'}`;
+  const annotoriousKey = `${resolvedImageUrl}-${readOnly ? 'readonly' : 'editable'}`;
 
   return (
     <div
@@ -103,7 +105,7 @@ export function AnnotationCanvas({
       <Annotorious key={annotoriousKey}>
         <ImageAnnotator drawingEnabled={!readOnly} tool="rectangle">
           <img
-            src={imageUrl}
+            src={resolvedImageUrl}
             alt="Imagem para anotação"
             className="w-full h-auto block"
             draggable={false}

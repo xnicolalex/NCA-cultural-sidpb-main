@@ -1,5 +1,7 @@
+import { apiPath } from "@/lib/paths";
+
 export async function editarSenha(usuarioId: string, novaSenha: string): Promise<void> {
-  const response = await fetch('/api/usuario/senha', {
+  const response = await fetch(apiPath('/api/usuario/senha'), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ usuarioId, novaSenha }),
@@ -11,7 +13,7 @@ export async function editarSenha(usuarioId: string, novaSenha: string): Promise
 }
 
 export async function inativarUsuario(usuarioId: string): Promise<void> {
-  const response = await fetch('/api/usuario/inativar', {
+  const response = await fetch(apiPath('/api/usuario/inativar'), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ usuarioId }),
@@ -23,7 +25,7 @@ export async function inativarUsuario(usuarioId: string): Promise<void> {
 }
 
 export async function deletarUsuario(usuarioId: string): Promise<void> {
-  const response = await fetch(`/api/usuario/deletar?usuarioId=${usuarioId}`, {
+  const response = await fetch(apiPath(`/api/usuario/deletar?usuarioId=${usuarioId}`), {
     method: 'DELETE',
   });
 

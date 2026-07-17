@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { withBasePath } from "@/lib/paths"
 
 
 const slides = [
@@ -115,7 +116,7 @@ export function Carousel({ className }: { className?: string }) {
                 }}
                 className="w-[30%] h-[185px] rounded-2xl overflow-hidden border-[2px] border-black/70 shadow-2xl">
                 <div className="relative w-full h-full">
-                  <img src={slide.image} alt={slide.description} className="w-full h-full object-cover" draggable={false}/>
+                  <img src={withBasePath(slide.image)} alt={slide.description} className="w-full h-full object-cover" draggable={false}/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
                   <div className="absolute bottom-2.5 left-2.5">

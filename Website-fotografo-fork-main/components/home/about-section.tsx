@@ -2,6 +2,7 @@ import { Globe, Plus, SendHorizonal, SearchCheck, Lightbulb, BookCheck, Fingerpr
 import { Carousel } from "@/components/carousel"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { withBasePath } from "@/lib/paths"
 
 const cards = [
   {
@@ -99,7 +100,7 @@ export function AboutSection() {
 
                   <div className="flex flex-wrap justify-center -space-x-4 md:-space-x-10 pb-2 pt-12 md:pt-20">
                     {aiLogos.map((logo, i) => (
-                      <img key={logo.alt} className="h-16 w-16 md:h-24 md:w-24 bg-gray-50 border border-gray-300 shadow-sm rounded-full object-cover select-none pointer-events-none" src={logo.src} alt={logo.alt} style={{ animation: `float ${logo.duration} ease-in-out infinite`, animationDelay: logo.delay, zIndex: 10 + i * 10 }} />
+                      <img key={logo.alt} className="h-16 w-16 md:h-24 md:w-24 bg-gray-50 border border-gray-300 shadow-sm rounded-full object-cover select-none pointer-events-none" src={withBasePath(logo.src)} alt={logo.alt} style={{ animation: `float ${logo.duration} ease-in-out infinite`, animationDelay: logo.delay, zIndex: 10 + i * 10 }} />
                     ))}
                   </div>
 
@@ -149,7 +150,7 @@ export function AboutSection() {
               </div>
             </div>
             <div className="w-full sm:w-3/4 lg:w-2/5">
-              <img src="/bumbaDanca.png" alt="Bumba Meu Boi" className="rounded-2xl object-cover aspect-square shadow-2xl w-full" />
+              <img src={withBasePath("/bumbaDanca.png")} alt="Bumba Meu Boi" className="rounded-2xl object-cover aspect-square shadow-2xl w-full" />
             </div>
           </div>
         </div>

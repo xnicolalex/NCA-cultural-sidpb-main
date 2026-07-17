@@ -26,7 +26,8 @@ interface RequestOptions extends Omit<RequestInit, "body"> {
 
 function buildUrl(path: string, params?: Record<string, QueryValue>) {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`
-  const url = new URL(`${API_BASE_URL}${normalizedPath}`)
+  const origin = typeof window === "undefined" ? "http://localhost" : window.location.origin
+  const url = new URL(`${API_BASE_URL}${normalizedPath}`, origin)
 
   Object.entries(params ?? {}).forEach(([key, value]) => {
     if (value === undefined || value === null || value === "") return

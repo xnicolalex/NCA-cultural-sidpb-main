@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
+import { apiPath } from "@/lib/paths";
 import type { RegistroComDominio, AnotadaParaRevisao, CurationStats } from "../_types";
 
 export function useCuradoriaData() {
@@ -14,7 +15,7 @@ export function useCuradoriaData() {
 
   const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch("/api/curadoria/stats");
+      const res = await fetch(apiPath("/api/curadoria/stats"));
       if (res.ok) setStats(await res.json());
     } catch {
       // Silent fail
@@ -27,7 +28,7 @@ export function useCuradoriaData() {
       const params = new URLSearchParams();
       if (filtroStatus) params.set("status", filtroStatus);
       if (somenteComSugestao) params.set("comSugestao", "true");
-      const res = await fetch(`/api/curadoria/pendentes?${params.toString()}`);
+      const res = await fetch(apiPath(`/api/curadoria/pendentes?${params.toString()}`));
       if (res.ok) {
         setRegistros(await res.json());
       } else {
@@ -42,7 +43,7 @@ export function useCuradoriaData() {
 
   const fetchAnotadas = useCallback(async () => {
     try {
-      const res = await fetch("/api/curadoria/anotadas");
+      const res = await fetch(apiPath("/api/curadoria/anotadas"));
       if (res.ok) {
         const data = await res.json();
         setAnotadas(data);

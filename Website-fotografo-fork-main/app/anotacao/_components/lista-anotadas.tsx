@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronUp, Clock, CheckCircle, XCircle } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 import type { Registro } from "../_types";
 
 interface ListaAnotadasProps {
@@ -100,7 +101,7 @@ export function ListaAnotadas({
                       : "border border-transparent"
                   }`}
                 >
-                  <img src={a.url} alt={a.titulo} className="w-12 h-12 object-cover rounded" />
+                  <img src={withBasePath(a.url)} alt={a.titulo} className="w-12 h-12 object-cover rounded" />
                   <div>
                     <p className="text-sm font-medium">{a.titulo}</p>
                     <p className="text-xs text-slate-500">{a.dominio?.nome_categoria ?? "Outros"}</p>

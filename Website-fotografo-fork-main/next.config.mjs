@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "")
+
 const nextConfig = {
-  basePath: '/cultura',
-  trailingSlash: true,
+  ...(basePath ? { basePath } : {}),
+  // Permite conexões externas (WebSockets/HMR) no modo Dev dentro do Docker
   allowedDevOrigins: [
     'localhost:3001',
     'localhost:3000',
@@ -15,3 +17,9 @@ const nextConfig = {
   },
 }
 export default nextConfig
+
+// Redirecionamentos
+// Variáveis de ambiente públicas
+// Domínios externos de imagem
+// Headers customizados
+// Modo de saída

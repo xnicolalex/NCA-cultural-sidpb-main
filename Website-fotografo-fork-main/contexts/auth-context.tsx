@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { apiPath } from "@/lib/paths"
 
 export interface UsuarioSessao {
   id: string
@@ -23,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/me")
+    fetch(apiPath("/api/me"))
       .then((res) => {
         if (res.ok) return res.json()
         throw new Error("Not authenticated")
@@ -50,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const logoutSessao = async () => {
-    await fetch("/api/logout", { method: "POST" })
+    await fetch(apiPath("/api/logout"), { method: "POST" })
     limparSessaoLocal()
   }
 

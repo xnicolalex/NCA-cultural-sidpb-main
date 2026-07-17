@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 
 interface LightboxViewerProps {
   open: boolean;
@@ -39,7 +40,7 @@ export function LightboxViewer({ open, onClose, imageUrl }: LightboxViewerProps)
         <X className="h-8 w-8" />
       </button>
       <img
-        src={imageUrl}
+        src={withBasePath(imageUrl)}
         alt="Visualização expandida"
         className="max-h-[95vh] max-w-[95vw] object-contain"
         onClick={(e) => e.stopPropagation()}

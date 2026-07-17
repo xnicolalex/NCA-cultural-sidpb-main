@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { X } from "lucide-react";
+import { apiPath, withBasePath } from "@/lib/paths";
 import type { RegistroComDominio } from "@/hooks/usePerfil";
 
 interface ImageCardProps {
@@ -22,7 +23,7 @@ export function ImageCard({ registro, onProcessarSugestao, onRefresh }: ImageCar
     e.stopPropagation();
     setLoadingAprovar(true);
     try {
-      const res = await fetch("/api/curadoria/aprovar", {
+      const res = await fetch(apiPath("/api/curadoria/aprovar"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ registroId: registro.id }),
@@ -42,7 +43,7 @@ export function ImageCard({ registro, onProcessarSugestao, onRefresh }: ImageCar
     if (!confirm("Tem certeza que deseja rejeitar esta imagem?")) return;
     setLoadingRejeitar(true);
     try {
-      const res = await fetch("/api/curadoria/rejeitar", {
+      const res = await fetch(apiPath("/api/curadoria/rejeitar"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ registroId: registro.id }),
@@ -84,7 +85,7 @@ export function ImageCard({ registro, onProcessarSugestao, onRefresh }: ImageCar
           <div className="w-full sm:w-48 flex-shrink-0">
             <div className="relative aspect-square rounded-lg border overflow-hidden bg-slate-100">
               <img
-                src={registro.url}
+                src={withBasePath(registro.url)}
                 alt={registro.titulo}
                 className="w-full h-full object-cover"
               />
@@ -208,7 +209,7 @@ export function ImageCard({ registro, onProcessarSugestao, onRefresh }: ImageCar
             <div className="lg:w-3/5 bg-black flex items-center justify-center">
               <div className="relative w-full h-full flex items-center justify-center">
                 <img
-                  src={registro.url}
+                  src={withBasePath(registro.url)}
                   alt={registro.titulo}
                   className="max-h-[80vh] object-contain"
                 />
