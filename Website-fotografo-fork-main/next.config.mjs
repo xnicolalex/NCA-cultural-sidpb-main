@@ -7,18 +7,15 @@ const nextConfig = {
   allowedDevOrigins: [
     'localhost:3001',
     'localhost:3000',
-    '192.168.200.186' 
+    '192.168.200.186'
   ],
-  
   typescript: {
-    ignoreBuildErrors: true, // ajustar para false após fase inicial de projeto
+    ignoreBuildErrors: true,
   },
-  
   images: {
     unoptimized: true,
   },
 }
-
 export default nextConfig
 
 // Redirecionamentos

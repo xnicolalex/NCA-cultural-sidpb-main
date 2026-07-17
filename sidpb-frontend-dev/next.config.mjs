@@ -3,6 +3,8 @@ const basePath =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  basePath: "/sidpb",
+  trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
   },
